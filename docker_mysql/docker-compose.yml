@@ -1,0 +1,29 @@
+version: '3.7'
+services:
+  db:
+    build: ./mysql/
+    image: mysql:latest
+    environment:
+      MYSQL_DATABASE: wordpress
+      MYSQL_ROOT_PASSWORD: mysql
+      MYSQL_USER: admin
+      MYSQL_PASSWORD: qk9Baa29+sL
+    expose:
+      - "3306"
+    ports:
+      - "3307:3306"
+  wordpress:
+    build: ./wordpress/
+    image: wordpress:latest
+    expose:
+      - "80"
+    ports:
+      - "8000:80"
+    restart: always
+    environment:
+      WORDPRESS_DB_HOST: db
+      WORDPRESS_DB_USER: admin
+      WORDPRESS_DB_PASSWORD: qk9Baa29+sL
+      WORDPRESS_DB_NAME: wordpress
+    depends_on:
+      - db
